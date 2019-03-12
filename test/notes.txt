@@ -1,3 +1,4 @@
 docker run -p 4000:3000 -d --name tawes semcon/sc-tawes /bin/init.sh "$(< config/init.trig)"
 curl -s http://localhost:4000/api/data | jq
 curl -s http://localhost:4000/api/data?id=11343 | jq
+curl -s https://vownyourdata.zamg.ac.at:9600/api/data?id=11343 | jq

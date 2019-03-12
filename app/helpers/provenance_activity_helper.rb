@@ -11,7 +11,8 @@ module ProvenanceActivityHelper
 			source_description + " <" + source_url + ">")
 
 		prov  = "scr:input_" + data_hash[0,12] + "_" + container_uid[0,8] + " a prov:Activity;\n"
-		prov += '    rdfs:label "' + data_hash + '"^^xsd:string;' + "\n"
+		prov += '    sc:inputHash "' + data_hash + '"^^xsd:string;' + "\n"
+		prov += '    rdfs:label "data input from ' + timeEnd.iso8601 + '"^^xsd:string;' + "\n"
 		prov += "    prov:qualifiedUsage [\n"
 		prov += "        a prov:Usage;\n"
 		prov += "        prov:entity scr:source_" + source_hash[0,12] + ";\n"
@@ -23,9 +24,9 @@ module ProvenanceActivityHelper
 		prov += ".\n\n"
 
 		prov += "scr:source_" + source_hash[0,12] + " a prov:Entity;\n"
-		prov += '    rdfs:label "' + source_hash + '"^^xsd:string;' + "\n"
+		prov += '    sc:sourceHash "' + source_hash + '"^^xsd:string;' + "\n"
 		prov += "    a prov:PrimarySource;\n"
-		prov += '    rdfs:comment "' + source_description + '"^^xsd:string;' + "\n"
+		prov += '    rdfs:label "' + source_description + '"^^xsd:string;' + "\n"
 		prov += "    prov:hasLocation <" + source_url + ">;\n"
 		prov += ".\n\n"
 
