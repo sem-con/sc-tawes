@@ -3,7 +3,8 @@ MAINTAINER "Christoph Fabianek" christoph@ownyourdata.eu
 
 WORKDIR /usr/src/app
 COPY . .
-RUN bundle install
+RUN bundle install && \
+	rake db:migrate
 
 CMD ["./script/run.sh"]
 
