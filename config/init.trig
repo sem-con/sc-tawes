@@ -52,7 +52,13 @@
     # :isDataMappingExist false ;     # NON-EDITABLE - assigned
     # :isUsagePolicyExist true ;      # NON-EDITABLE - assigned
     # data - classifications
-    :hasTag "zamg", "climate" ;
+    :hasTag "zamg", "weather", "commercial" ;
+    :hasPaymentInfo """
+commercial weather data, contact dion@zamg.ac.at
+    """;
+    :hasSellerEmail "zamg@ownyourdata.eu" ;
+    :hasSellerPubkeyID "EA8F56EF987CF93805C1330AEF6351C78B572038" ;
+
     # data format - inspired from void
     :hasNativeSyntax <http://w3id.org/semcon/ns/ontology#CSV> ;
     :hasDataLocationDescription "Weather data provided by ZAMG";

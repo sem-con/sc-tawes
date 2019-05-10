@@ -48,12 +48,6 @@ scr:ContainerConfigurationConstraints
                       sh:minCount  0 ;
                       sh:path      :hasDataConfiguration
                     ] ;
-# -- FOR LATER
-#    sh:property     [ sh:dataType :DataLayer ;
-#             sh:maxCount  1 ;
-#             sh:minCount  1 ;
-#                      sh:path      :hasDataLayer
-#                    ] ;
     sh:targetClass  :ContainerConfiguration .
 
 
@@ -71,11 +65,15 @@ scr:DataConfigurationConstraints
                     ] ;
     sh:property     [ sh:maxCount  1 ;
                       sh:minCount  0 ;
-                      sh:path      :hasDataLocation
+                      sh:path      :hasPaymentInfo
                     ] ;
     sh:property     [ sh:maxCount  1 ;
                       sh:minCount  0 ;
-                      sh:path      :hasDataLocationDescription
+                      sh:path      :hasSellerEmail
+                    ] ;
+    sh:property     [ sh:maxCount  1 ;
+                      sh:minCount  0 ;
+                      sh:path      :hasSellerPubkeyID
                     ] ;
     sh:property     [ sh:maxCount  1 ;
                       sh:minCount  0 ;
@@ -157,11 +155,14 @@ scr:DataConfigurationConstraints
     ###  http://xmlns.com/foaf/0.1/name
     foaf:name rdf:type owl:DatatypeProperty ;
               rdfs:domain foaf:Agent .
-    ###  http://w3id.org/semcon/ns/ontology#hasDataLocation
-    :hasDataLocation rdf:type owl:DatatypeProperty ;
+    ###  http://w3id.org/semcon/ns/ontology#hasPaymentInfo
+    :hasPaymentInfo rdf:type owl:DatatypeProperty ;
                  rdfs:domain :DataConfiguration .
-    ###  http://w3id.org/semcon/ns/ontology#hasDataLocationDescription
-    :hasDataLocationDescription rdf:type owl:DatatypeProperty ;
+    ###  http://w3id.org/semcon/ns/ontology#hasSellerEmail
+    :hasSellerEmail rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :DataConfiguration .
+    ###  http://w3id.org/semcon/ns/ontology#hasSellerPubkeyID
+    :hasSellerPubkeyID rdf:type owl:DatatypeProperty ;
                  rdfs:domain :DataConfiguration .
 
     #################################################################
