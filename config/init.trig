@@ -12,10 +12,20 @@
 @prefix svpu:  <http://www.specialprivacy.eu/vocabs/purposes#> .
 @prefix svd:   <http://www.specialprivacy.eu/vocabs/data#> .
 @prefix svdu:  <http://www.specialprivacy.eu/vocabs/duration#> .
-@prefix svl:   <https://www.specialprivacy.eu/vocabs/locations#> .
-@prefix svr:   <https://www.specialprivacy.eu/vocabs/recipients#> .
-@prefix spl:   <https://www.specialprivacy.eu/langs/usage-policy#> .
+@prefix svl:   <http://www.specialprivacy.eu/vocabs/locations#> .
+@prefix svr:   <http://www.specialprivacy.eu/vocabs/recipients#> .
+@prefix spl:   <http://www.specialprivacy.eu/langs/usage-policy#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix spl: <http://www.specialprivacy.eu/langs/usage-policy#> .
+@prefix svd: <http://www.specialprivacy.eu/vocabs/data#> .
+@prefix svr: <http://www.specialprivacy.eu/vocabs/recipients#> .
+@prefix svpu: <http://www.specialprivacy.eu/vocabs/purposes#> .
+@prefix svpr: <http://www.specialprivacy.eu/vocabs/processing#> .
+@prefix svl: <http://www.specialprivacy.eu/vocabs/locations#> .
+@prefix svdu: <http://www.specialprivacy.eu/vocabs/duration#> .
+@prefix svd: <http://www.specialprivacy.eu/vocabs/data#> .
 
 #################################################################
 #    NAMED GRAPH ==> :BaseConfigurations
@@ -24,12 +34,12 @@
 
   :ContainerConfigurationInstance rdf:type :ContainerConfiguration ;
     # generic - dublin core
-    dc:title "Weather Data" ;
+    dc:title "TAWES Data" ;
     dc:description """
         weather data provided by ZAMG under https://www.zamg.ac.at/ogd/
       """ ;
     dc:creator [
-      rdf:type foaf:Organization ;
+      rdf:type foaf:Organisation ;
       foaf:name "ZAMG" ;
       foaf:mbox <mailto:dion@zamg.ac.at> ;
     ] ;
@@ -42,14 +52,15 @@
     # :isDataMappingExist false ;     # NON-EDITABLE - assigned
     # :isUsagePolicyExist true ;      # NON-EDITABLE - assigned
     # data - classifications
-    :hasTag "" ;
+    :hasTag "zamg", "climate" ;
     # data format - inspired from void
     :hasNativeSyntax <http://w3id.org/semcon/ns/ontology#CSV> ;
     :hasDataLocationDescription "Weather data provided by ZAMG";
     :hasDataLocation <https://www.zamg.ac.at/ogd/>;
+
     # example data in plain string
     :hasExampleData """
-"Station";"Name";"Höhe m";"Datum";"Zeit";"T °C";"TP °C";"RF %";"WR °";"WG km/h";"WSR °";"WSG km/h";"N l/m²";"LDred hPa";"LDstat hPa";"SO %"
+      "Station";"Name";"Höhe m";"Datum";"Zeit";"T °C";"TP °C";"RF %";"WR °";"WG km/h";"WSR °";"WSG km/h";"N l/m²";"LDred hPa";"LDstat hPa";"SO %"
 11010;"Linz/Hörsching";298;"08-03-2019";"09:00";8,5;3,5;71;230;7,6;;16,6;0;1015,2;977,6;0
       """ .     
 }
@@ -58,51 +69,38 @@
 #    NAMED GRAPH ==> :UsagePolicies
 #################################################################
 :UsagePolicy {
-:ContainerPolicy rdf:type owl:Class ; # this line should not be changed!
-    owl:equivalentClass [ 
-        owl:intersectionOf ( 
-            [ 
-                rdf:type owl:Restriction ;
-                owl:onProperty spl:hasData ;
-                owl:someValuesFrom [ 
-                    owl:unionOf ( 
-                        svd:MeteorologicMeasurement
-                        svd:MeteorologicCurrent
-                    ) ;
-                ] 
-            ]
-            [ 
-                rdf:type owl:Restriction ;
-                owl:onProperty spl:hasRecipient ;
-                owl:someValuesFrom [ 
-                    owl:unionOf ( 
-                        svr:Ours
-                        svr:Same
-                    ) ;
-                ] 
-            ]
-            [ 
-                rdf:type owl:Restriction ;
-                owl:onProperty spl:hasPurpose ;
-                owl:someValuesFrom spl:AnyPurpose
-            ]
-            [ 
-                rdf:type owl:Restriction ;
-                owl:onProperty spl:hasProcessing ;
-                owl:someValuesFrom spl:AnyProcessing
-            ]
-            [ 
-                rdf:type owl:Restriction ;
-                owl:onProperty spl:hasLocation ;
-                owl:someValuesFrom spl:AnyLocation
-            ]
-            [ 
-                rdf:type owl:Restriction ;
-                owl:onProperty spl:hasDuration ;
-                owl:someValuesFrom svdu:StatedPurpose
-            ]
-        ) ;
-        rdf:type owl:Class
+  <http://w3id.org/semcon/ns/ontology#ContainerPolicy> a <http://www.w3.org/2002/07/owl#Class>;
+    <http://www.w3.org/2002/07/owl#equivalentClass> [
+    a <http://www.w3.org/2002/07/owl#Class>;
+    <http://www.w3.org/2002/07/owl#intersectionOf> ([
+    a <http://www.w3.org/2002/07/owl#Restriction>;
+    <http://www.w3.org/2002/07/owl#onProperty> <http://www.specialprivacy.eu/langs/usage-policy#hasData>;
+    <http://www.w3.org/2002/07/owl#someValuesFrom> [<http://www.w3.org/2002/07/owl#unionOf> (<http://www.specialprivacy.eu/vocabs/data#EarthObservation>)]
+    ] [
+    a <http://www.w3.org/2002/07/owl#Restriction>;
+    <http://www.w3.org/2002/07/owl#onProperty> <http://www.specialprivacy.eu/langs/usage-policy#hasRecipient>;
+    <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.specialprivacy.eu/langs/usage-policy#AnyRecipient>
+    ] [
+    a <http://www.w3.org/2002/07/owl#Restriction>;
+    <http://www.w3.org/2002/07/owl#onProperty> <http://www.specialprivacy.eu/langs/usage-policy#hasPurpose>;
+    <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.specialprivacy.eu/langs/usage-policy#AnyPurpose>
+    ] [
+    a <http://www.w3.org/2002/07/owl#Restriction>;
+    <http://www.w3.org/2002/07/owl#onProperty> <http://www.specialprivacy.eu/langs/usage-policy#hasProcessing>;
+    <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.specialprivacy.eu/langs/usage-policy#AnyProcessing>
+    ] [
+    a <http://www.w3.org/2002/07/owl#Restriction>;
+    <http://www.w3.org/2002/07/owl#onProperty> <http://www.specialprivacy.eu/langs/usage-policy#hasStorage>;
+    <http://www.w3.org/2002/07/owl#someValuesFrom> [<http://www.w3.org/2002/07/owl#intersectionOf> ([
+    a <http://www.w3.org/2002/07/owl#Restriction>;
+    <http://www.w3.org/2002/07/owl#onProperty> <http://www.specialprivacy.eu/langs/usage-policy#hasLocation>;
+    <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.specialprivacy.eu/langs/usage-policy#AnyLocation>
+    ] [
+    a <http://www.w3.org/2002/07/owl#Restriction>;
+    <http://www.w3.org/2002/07/owl#onProperty> <http://www.specialprivacy.eu/langs/usage-policy#hasDuration>;
+    <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.specialprivacy.eu/vocabs/duration#StatedPurpose>
+    ])]
+    ])
     ] .
 }
   
