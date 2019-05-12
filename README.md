@@ -24,15 +24,15 @@ This section lists examples how to use this Semantic Container.
 Perform the following steps to build up a local weather archive.    
 
 * start an empty container accepting data in CSV format    
-```
-$ wget https://raw.githubusercontent.com/sem-con/sc-base/master/spec/fixtures/files/init_format_csv.trig
-$ docker run -d -p 3000:3000 semcon/sc-tawes /bin/init.sh "$(< init_format_csv.trig)"
-```
+    ```
+    $ wget https://raw.githubusercontent.com/sem-con/sc-base/master/spec/fixtures/files/init_format_csv.trig
+    $ docker run -d -p 3000:3000 semcon/sc-tawes /bin/init.sh "$(< init_format_csv.trig)"
+    ```
 
 * setup a cron script to fetch data on an hourly basis (replace `id=xyz` with your actual location)    
-```
-$ (crontab -l; echo "0 * * * * curl https://vownyourdata.zamg.ac.at:9610/api/data?id=xyz | curl -H "Content-Type: application/json" -d @- -X POST http://localhost:3000/api/data"
-```
+    ```
+    $ (crontab -l; echo "0 * * * * curl https://vownyourdata.zamg.ac.at:9610/api/data?id=xyz | curl -H "Content-Type: application/json" -d @- -X POST http://localhost:3000/api/data") | crontab
+    ```
 
 
 ## Improve this Semantic Container    
