@@ -3,21 +3,20 @@ module DataAccessHelper
         require 'open-uri'
         require 'csv'
 
+        retVal = []
         if (params["id"].to_s != "")
         	response = open('https://www.zamg.ac.at/ogd/').string.force_encoding("utf-8") rescue nil
         	if !response.nil?
         		CSV.parse(response, headers: true, col_sep: ";").each do |row|
-        			if row["Station"].to_s == params["id"].to_s
-        				return [
-        					response.split("\n").first,
-        					row.to_csv(col_sep: ";").strip
-        				]
+                    if JSON.parse("[" + params["id"].to_s + "]").map(&:to_s).include? row["Station"].to_s
+                        if retVal.count == 0
+                            retVal << response.split("\n").first
+                        end
+        				retVal << row.to_csv(col_sep: ";").strip
         			end
         		end
-        		[]
-        	else
-        		[]
         	end
+            retVal
         else 
         	open('https://www.zamg.ac.at/ogd/').string.force_encoding("utf-8").split("\n") rescue []
         end
@@ -54,5 +53,5 @@ module DataAccessHelper
             "provenance": getProvenance(content_hash, param_str, timeStart, timeEnd)
         }.stringify_keys
     end
-    
+
 end
