@@ -23,7 +23,7 @@ This section lists examples how to use this Semantic Container.
 ### Aggregate    
 Perform the following steps to build up a local weather archive.    
 
-* start an empty container accepting data in CSV format    
+* start an empty container that accepts data in CSV format    
     ```
     $ wget https://raw.githubusercontent.com/sem-con/sc-base/master/spec/fixtures/files/init_format_csv.trig
     $ docker run -d -p 3000:3000 semcon/sc-tawes /bin/init.sh "$(< init_format_csv.trig)"
