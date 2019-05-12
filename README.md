@@ -1,6 +1,4 @@
-# sc-tawes
-
-# <img src="https://github.com/sem-con/sc-tawes/raw/master/app/assets/images/oyd_blue.png" width="92"> ZAMG Weather Data    
+# <img src="https://github.com/sem-con/sc-tawes/raw/master/app/assets/images/oyd_blue.png" width="60"> ZAMG Weather Data    
 This [Semantic Container](https://www.ownyourdata.eu/semcon) provides data from measurements of automatic weather stations in Austria provided by [ZAMG](https://www.zamg.ac.at).    
 
 Docker Image: https://hub.docker.com/r/semcon/sc-tawes
@@ -23,10 +21,19 @@ $ curl http://localhost:3000/api/data
 This section lists examples how to use this Semantic Container.
 
 ### Aggregate    
-Run the following code to query data on an hourly basis and build up a local weather archive.    
+Perform the following steps to build up a local weather archive.    
+
+* start an empty container accepting data in CSV format    
 ```
-$ docker run
+$ wget https://raw.githubusercontent.com/sem-con/sc-base/master/spec/fixtures/files/init_format_csv.trig
+$ docker run -d -p 3000:3000 semcon/sc-tawes /bin/init.sh "$(< init_format_csv.trig)"
 ```
+
+* setup a cron script to fetch data on an hourly basis (replace `id=xyz` with your actual location)    
+```
+$ (crontab -l; echo "0 * * * * curl https://vownyourdata.zamg.ac.at:9610/api/data?id=xyz | curl -H "Content-Type: application/json" -d @- -X POST http://localhost:3000/api/data"
+```
+
 
 ## Improve this Semantic Container    
 
