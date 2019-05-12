@@ -31,7 +31,7 @@ Perform the following steps to build up a local weather archive.
 
 * setup a cron script to fetch data on an hourly basis (replace `id=xyz` with your actual location)    
     ```
-    $ (crontab -l; echo "0 * * * * curl https://vownyourdata.zamg.ac.at:9610/api/data?id=xyz | curl -H "Content-Type: application/json" -d @- -X POST http://localhost:3000/api/data") | crontab
+    $ (crontab -l; echo "0 * * * * curl https://vownyourdata.zamg.ac.at:9610/api/data/plain?id=xyz | curl -H "Content-Type: application/json" -d @- -X POST http://localhost:3000/api/data") | crontab
     ```
 
 
