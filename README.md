@@ -7,18 +7,20 @@ Docker Image: https://hub.docker.com/r/semcon/sc-tawes
  
 
 ## Usage   
+To get a general introduction to the use of Semantic Containers please refer to the [SemCon Tutorial](https://github.com/sem-con/Tutorials).    
 Start container locally:    
 ```
 $ docker pull semcon/sc-tawes
+$ docker run -d -p 3000:3000 semcon/sc-tawes
 ```
 
-Access data online:    
+Access data:    
 ```
-$ curl https://vownyourdata.zamg.ac.at:9600/api/data
+$ curl http://localhost:3000/api/data
 ```
 
 ## Examples    
-This section lists examples how to use this Semantic Container. To get a general introduction to the use of Semantic Containers please refer to the [SemCon Tutorial](https://github.com/sem-con/Tutorials).
+This section lists examples how to use this Semantic Container.
 
 ### Aggregate    
 Run the following code to query data on an hourly basis and build up a local weather archive.    
@@ -26,7 +28,7 @@ Run the following code to query data on an hourly basis and build up a local wea
 $ docker run
 ```
 
-## Improve the Semantic Container    
+## Improve this Semantic Container    
 
 Please report any bugs or feature requests in the [GitHub Issue-Tracker](https://github.com/sem-con/sc-tawes/issues) and follow the [Contributor Guidelines](https://github.com/twbs/ratchet/blob/master/CONTRIBUTING.md).
 
